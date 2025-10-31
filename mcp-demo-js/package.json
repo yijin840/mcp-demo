@@ -1,0 +1,55 @@
+{
+  "name": "thiredweb",
+  "version": "1.0.0",
+  "description": "Thirdweb x402 payment server",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "agent": "ts-node thirdweb_agent.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.67.0",
+    "@hono/node-server": "^1.19.5",
+    "@langchain/core": "^1.0.1",
+    "@langchain/google-genai": "^1.0.0",
+    "@langchain/langgraph": "^1.0.0",
+    "@langchain/mcp-adapters": "^1.0.0",
+    "@langchain/openai": "^1.0.0",
+    "@thirdweb-dev/chains": "^0.1.120",
+    "@thirdweb-dev/pay": "^0.1.8",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "@thirdweb-dev/wallets": "^2.5.39",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "global-agent": "^3.0.0",
+    "hono": "^4.9.12",
+    "hpagent": "^1.2.0",
+    "https-proxy-agent": "^7.0.6",
+    "langchain": "^1.0.1",
+    "openai": "^6.6.0",
+    "thirdweb": "^5.109.1",
+    "undici": "^7.16.0",
+    "viem": "^2.38.3",
+    "vite": "^7.1.11",
+    "x402": "^0.6.6",
+    "x402-axios": "^0.6.6",
+    "x402-hono": "^0.6.5",
+    "zhipuai-sdk-nodejs-v4": "^0.1.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/global-agent": "^3.0.0",
+    "@types/node": "^20.19.23",
+    "@types/node-fetch": "^2.6.13",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "axios": "$axios"
+  },
+  "type": "module"
+}
