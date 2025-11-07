@@ -1,11 +1,16 @@
 package org.yijin.mcp.server;
 
 import org.springframework.ai.tool.ToolCallback;
-import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.function.FunctionToolCallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
 
 /**
@@ -16,7 +21,7 @@ import java.util.function.Supplier;
 @Configuration
 public class McpToolConfig {
     @Bean
-    public ToolCallback getCurrentTimeToolCallback() {
+    public ToolCallback getCurrentTimeTool() {
         Supplier<String> timeSupplier = () -> {
             String time = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
             String result = String.format(
@@ -31,9 +36,29 @@ public class McpToolConfig {
                 .build();
     }
 
-    @Tool(description = "get desc")
-    public String getDesc() {
-        return "hello world";
+
+    @Bean
+    public ToolCallback getWeather() {
+        Supplier<String> weatherSupplier = () -> {
+            try {
+                String format = "%l: %C %t ↓%w";
+                String encodedFormat = URLEncoder.encode(format, StandardCharsets.UTF_8);
+                String url = "https://wttr.in/Shanghai?format=" + encodedFormat;
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(url)) // 简洁输出：天气 + 温度
+                        .GET()
+                        .build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                return response.body();
+            } catch (Exception e) {
+                return "无法获取天气：" + e.getMessage();
+            }
+        };
+
+        return FunctionToolCallback.builder("getWeather", weatherSupplier)
+                .description("获取当前天气，不需要任何参数。")
+                .build();
     }
 
 }
