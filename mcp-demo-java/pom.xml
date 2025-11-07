@@ -21,11 +21,16 @@
     </properties>
 
     <dependencies>
-        <!-- MCP SDK -->
+        <!--        &lt;!&ndash; MCP SDK &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.modelcontextprotocol.sdk</groupId>-->
+        <!--            <artifactId>mcp</artifactId>-->
+        <!--            <version>0.10.0</version>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>io.modelcontextprotocol.sdk</groupId>
-            <artifactId>mcp</artifactId>
-            <version>0.10.0</version>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
         <!-- Spring Boot Web Starter (含 Servlet & Logging) -->
@@ -37,6 +42,46 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- JUnit Jupiter Engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 可选：断言增强 -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 可选：Reactor 测试 StepVerifier -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <version>3.5.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <version>3.5.9</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
