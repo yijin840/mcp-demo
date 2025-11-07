@@ -1,5 +1,6 @@
 package org.yijin.mcp.server;
 
+import lombok.Data;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -36,17 +38,21 @@ public class McpToolConfig {
                 .build();
     }
 
+    @Data
+    static class WeatherReq {
+        String city;
+    }
 
     @Bean
     public ToolCallback getWeather() {
-        Supplier<String> weatherSupplier = () -> {
+        Function<WeatherReq, String> weatherSupplier = (input) -> {
             try {
-                String format = "%l: %C %t ↓%w";
-                String encodedFormat = URLEncoder.encode(format, StandardCharsets.UTF_8);
-                String url = "https://wttr.in/Shanghai?format=" + encodedFormat;
+                String city = input.getCity();
+                String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+                String url = String.format("https://wttr.in/%s", encodedCity);
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(url)) // 简洁输出：天气 + 温度
+                        .uri(URI.create(url))
                         .GET()
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -55,9 +61,9 @@ public class McpToolConfig {
                 return "无法获取天气：" + e.getMessage();
             }
         };
-
         return FunctionToolCallback.builder("getWeather", weatherSupplier)
-                .description("获取当前天气，不需要任何参数。")
+                .description("获取当前天气，接受一个String参数，名字叫city， 用法如下： map('city', 'shanghai')， 必须用英文")
+                .inputType(WeatherReq.class)
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package org.yijin.mcp.client;
 
+import com.google.inject.internal.util.Maps;
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
@@ -141,11 +142,11 @@ public class McpClientDemo {
         // 2. 构造 CallToolRequest
         Mono<McpSchema.ListToolsResult> listToolsResultMono = client.listTools();
         System.out.println(listToolsResultMono.block().tools());
-        // 假设服务器注册了一个名为 "noopTool" 的工具
-        // 并假设这个工具接受一个名为 "input" 的参数，值为 "hello"
-        Map<String, Object> arguments = Collections.emptyMap(); // 干净利落，TMD！
+
+        Map<String, Object> arguments = Maps.newHashMap();
+        arguments.put("city", "上海");
         McpSchema.CallToolRequest request = new McpSchema.CallToolRequest(
-                "getCurrentTime", // <-- 替换成你服务器实际注册的工具名称
+                "getWeather",
                 arguments
         );
 

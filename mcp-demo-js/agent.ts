@@ -68,7 +68,7 @@ async function main() {
         });
 
         // 任务 1: 查询可用服务
-        const input11 = "查询天气，把完整的返回信息都告诉我，要求格式要容易阅读，不要有markdown，并且全部用中文名称";
+        const input11 = "使用getWeather工具查询上海天气，把完整的天气信息都告诉我，越详细越好，要求格式要容易阅读，不要有markdown，并且全部用中文名称";
         console.log(`用户输入: ${input11}`);
         const response11 = await agentExecutor.invoke(createAgentInput(input11));
         const output11 = response11.messages[response11.messages.length - 1]?.content ?? "未能获取回复内容";
