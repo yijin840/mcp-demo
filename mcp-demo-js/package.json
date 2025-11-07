@@ -1,11 +1,11 @@
 {
-  "name": "thiredweb",
+  "name": "mcp-demo",
   "version": "1.0.0",
-  "description": "Thirdweb x402 payment server",
+  "description": "x402",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "agent": "ts-node thirdweb_agent.ts"
+    "agent": "ts-node agent.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.67.0",
